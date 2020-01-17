@@ -92,14 +92,21 @@ public class ManageCustomerAccountPage {
         }
     }
 
-    public void checkSearchSuccessfully(String searchVualueInput, boolean isSearched) {
+    public void checkSearchSuccessfully(String searchValueInput, boolean isSearched) {
         List<WebElement> accountInforRows = dataAccountTable();
         boolean searched = false;
 
         for (int i = 1; i <= accountInforRows.size() - 1; i++) {
             List<WebElement> accountInfo = accountInforRows.get(i).findElements(By.tagName("td"));
-            if (accountInfo.get(0).getText().contains(searchVualueInput) || accountInfo.get(1).getText().contains(searchVualueInput)) {
+            if (accountInfo.get(0).getText().contains(searchValueInput) || accountInfo.get(1).getText().contains(searchValueInput)) {
                 searched = true;
+                break;
+            } else if (!(accountInfo.get(0).getText().contains(searchValueInput)
+                    && accountInfo.get(1).getText().contains(searchValueInput))) {
+                System.out.println(accountInfo.get(0).getText());
+                System.out.println(accountInfo.get(1).getText());
+
+                searched = false;
                 break;
             }
         }
@@ -129,25 +136,6 @@ public class ManageCustomerAccountPage {
 
         commonPage.verifyCondition(isSorted, message);
 
-    }
-
-    public void checkSearchUnsuccessfully(String searchVualueInput, boolean isSearched) {
-        List<WebElement> accountInfoRows = dataAccountTable();
-        boolean searched = true;
-
-        for (int i = 1; i <= accountInfoRows.size() - 1; i++) {
-            List<WebElement> accountInfo = accountInfoRows.get(i).findElements(By.tagName("td"));
-            if (!(accountInfo.get(0).getText().contains(searchVualueInput)
-                    && accountInfo.get(1).getText().contains(searchVualueInput))) {
-                System.out.println(accountInfo.get(0).getText());
-                System.out.println(accountInfo.get(1).getText());
-
-                searched = false;
-                break;
-            }
-        }
-
-        commonPage.verifyCondition(isSearched, searched);
     }
 
     public void checkAccountExisted(String fullname, String postcode, String accountNumber, boolean isExisted) throws InterruptedException {

@@ -38,9 +38,4 @@ public class ManageCustomerAccountTest {
         getManageCustomerAccountPage().checkAccountExisted(accountNameInput, postCode, accountNumberInput, false);
     }
 
-    @Then("^I verify that results of value as (.*) is wrong or nothing change$")
-    public void verifySearchUnsuccessfully(String valueSearch) throws InterruptedException {
-        getManageCustomerAccountPage().checkSearchUnsuccessfully(valueSearch, true);
-    }
-
 }
